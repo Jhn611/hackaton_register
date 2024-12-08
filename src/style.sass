@@ -1,0 +1,519 @@
+//general
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap')
+
+
+:root
+    --hackcountrybg: #D6D2C3
+    --hackstatusbg: #C4D6C3
+    --hackunactivestatusbg: #E3ABAB
+    --listelcolor: #D2C8D4
+    --purplbg: #65558f
+    --purplbgactive: #463a64
+    --linkunactivecolor: #CFCFCF
+    --linkactivecolor: #FFFFFF
+    --white: #ffffff
+    --listbg: #E1DAE3
+    --scrollbg: #E1DAE3
+    --scrollcolor: #ddc9e3
+
+html, body 
+    margin: 0
+    height: 100%
+    width: 100%
+
+#app
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    align-items: top
+    width: 100%
+    height: 100%
+    overflow: hidden
+
+.wrapper
+    display: flex
+    flex-direction: column
+    justify-content: start
+    align-items: center
+    gap: 20px
+    padding: 6px 0 0 27px
+    width: 15%
+
+.switch_theme
+    width: 15%
+
+a
+    all: unset
+    cursor: pointer
+p
+    all: unset
+    font-family: Inter
+h1
+    all: unset
+    font-family: Inter
+h2
+    all: unset
+    font-family: Inter
+.text-h2
+    font-family: Inter
+    font-size: 32px
+    font-weight: 600
+.text-h1
+    font-family: Inter
+    font-size: 32px
+    font-weight: 600
+.text-16
+    font-family: Inter
+    font-size: 16px
+
+.account
+    display: flex
+    flex-direction: row
+    justify-content: center
+    align-items: center
+nav
+    position: relative
+    display: flex
+    flex-direction: row
+    justify-content: center
+    align-items: center
+    height: 178px
+    width: 205px
+    background-color: var(--purplbg)
+    border-radius: 5px
+    font-family: Inter
+    font-size: 30px
+    font-weight: 600
+
+.nav_el
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: left
+    gap: 10px
+    height: 100px
+    color: var(--linkunactivecolor)
+
+.arrow
+    position: absolute
+    height: 100px
+    &__1
+        top: 21px
+        left: 18px
+    &__2
+        top: 69px
+        left: 18px
+    &__3
+        top: 115px
+        left: 18px
+
+.router-link-active
+    color: var(--linkactivecolor)
+
+.list_container
+    overflow-y: scroll
+    overflow-x: hidden
+    display: flex
+    flex-direction: column
+    justify-content: start
+    align-items: center
+    gap: 15px
+    padding: 15px 0 0 0
+    width: 98%
+    height: 94%
+    border-radius: 10px
+    &::-webkit-scrollbar
+        width: 6px
+        border-radius: 10px
+    &::-webkit-scrollbar-track
+        background-color: var(--scrollbg)
+    &::-webkit-scrollbar-thumb
+        background-color: var(--scrollcolor)
+        border-radius: 20px
+        border: 0
+    
+input
+    all: unset
+    position: relative
+    top: 25px
+    left: 38px
+    font-size: 16px
+    font-family: Inter
+    font-weight: 500
+    color: #252525
+    margin: 0
+    width: 391px
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button 
+    -webkit-appearance: none
+    margin: 0
+
+.input
+    position: relative
+    background-color: #E1DAE3
+    border-radius: 10px
+    width: 450px
+    height: 56px
+    margin: 0 10px 0 0 
+    &__text
+        position: absolute
+        top: 10px
+        left: 38px
+        font-size: 12px
+        font-family: Inter
+        font-weight: 400
+        color: #2c2c2c
+        margin: 0
+
+    &__img
+        position: absolute
+        width: 24px
+        height: 24px
+        top: 16px
+        right: 10px
+
+    &__prev_img
+        position: absolute
+        width: 24px
+        height: 24px
+        top: 16px
+        left: 9px
+
+    &__select
+        position: relative
+        top: 25px
+        left: 38px
+        font-size: 16px
+
+.noicon_shift
+    &__input
+        position: relative
+        top: 25px
+        left: 18px
+    &__text
+        position: absolute
+        top: 10px
+        left: 18px
+    &__img
+        position: absolute
+        top: 16px
+        right: 10px
+    &__select
+        position: relative
+        top: 25px
+        left: 18px
+.btn
+    all: unset
+    display: flex
+    justify-content: space-evenly
+    align-items: center
+    font-family: Inter
+    color: var(--white)
+    font-size: 16px
+    width: 148px
+    height: 50px 
+    border-radius: 20px
+    background-color: var(--purplbg)
+    &:active
+        background-color: var(--purplbgactive)
+
+.custom-select 
+    position: relative
+    width: 420px
+    font-family: Inter
+  
+.selected 
+    padding: 1px 1px 1px 0
+    cursor: pointer
+    user-select: none
+    display: flex
+    justify-content: space-between
+    align-items: center
+
+.selected .arrow 
+    transition: transform 0.3s
+
+.select-img
+    position: absolute
+    right: 3px
+    top: -5px
+
+.selected .arrow.open 
+    transform: rotate(180deg)
+
+
+.dropdown 
+    position: absolute
+    width: 100%
+    border: 1px solid #ccc
+    background-color: var(--white)
+    list-style: none
+    padding: 0
+    margin: 0
+    z-index: 1000
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1)
+
+
+.dropdown li 
+    padding: 10px
+    cursor: pointer
+    transition: background-color 0.2s
+
+
+.dropdown li:hover 
+    background-color: #f0f0f0
+
+
+.dropdown li.active 
+    background-color: #d0f0d0
+
+.white
+    color: var(--white)
+.search
+    width: 65%
+.pointer
+    cursor: pointer
+
+.fade-enter-active, .fade-leave-active 
+  transition: opacity 0.4s
+
+.fade-enter-from, .fade-leave-to 
+  opacity: 0
+
+.page_swap-enter-active, .page_swap-leave-active 
+  animation: load_page 0.5s
+
+.page_swap-enter-from, .page_swap-leave-to 
+  animation: swap_page 0.3s
+
+.right-enter-active, .right-leave-active 
+  animation: right_load_page 0.7s
+
+.right-enter-from, .right-leave-to 
+  animation: right_swap_page 0.7s
+
+.left-enter-active, .left-leave-active 
+  animation: left_load_page 0.7s
+
+.left-enter-from, .left-leave-to 
+  animation: left_swap_page 0.7s
+
+@keyframes load_page 
+    0% 
+        transform: translate(-80px, 0)
+        opacity: 0.3
+    100% 
+        transform: translate(0, 0)
+        opacity: 1
+        
+@keyframes swap_page 
+    0% 
+        transform: translate(0, 0)
+        opacity: 1
+    100% 
+        transform: translate(80px, 0)
+        opacity: 0.3
+        
+@keyframes right_load_page 
+    0% 
+        transform: translate(-100px, 0)
+        opacity: 0.5
+    100% 
+        transform: translate(0, 0)
+        opacity: 1
+        
+@keyframes right_swap_page 
+    0% 
+        transform: translate(0, 0)
+        opacity: 1
+    100% 
+        transform: translate(100px, 0)
+        opacity: 0.5
+
+@keyframes left_load_page 
+    0% 
+        transform: translate(100px, 0)
+        opacity: 0.5
+    100% 
+        transform: translate(0, 0)
+        opacity: 1
+        
+@keyframes left_swap_page 
+    0% 
+        transform: translate(0, 0)
+        opacity: 1
+    100% 
+        transform: translate(-100px, 0)
+        opacity: 0.5
+//AdminHackatons.vue
+.hackaton_main
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    gap: 15px
+    width: 50%
+    height: 100%
+    &__adder   
+        display: flex
+        flex-direction: row
+        justify-content: center
+        align-items: center 
+        width: 100%
+    &__body
+        display: flex
+        flex-direction: column
+        justify-content: start
+        align-items: center
+        gap: 20px
+        padding: 15px 0 0 0
+        width: 90%
+        height: 70%
+        border-radius: 10px
+        background-color: var(--listbg)
+
+//AdminListUser.vue
+.users_main
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    gap: 15px
+    width: 50%
+    height: 100%
+    &__adder   
+        display: flex
+        flex-direction: row
+        justify-content: center
+        align-items: center 
+        width: 100%
+    &__body
+        display: flex
+        flex-direction: column
+        justify-content: start
+        align-items: center
+        gap: 20px
+        padding: 15px 0 0 0
+        width: 90%
+        height: 70%
+        border-radius: 10px
+        background-color: var(--listbg)
+
+
+//AdminSteckList.vue
+.steck_main
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    align-items: center
+    gap: 15px
+    width: 50%
+    height: 100%
+    &__adder   
+        display: flex
+        flex-direction: row
+        justify-content: center
+        align-items: center 
+        width: 100%
+    &__body
+        display: flex
+        flex-direction: column
+        justify-content: start
+        align-items: center
+        gap: 20px
+        padding: 15px 0 0 0
+        width: 90%
+        height: 70%
+        border-radius: 10px
+        background-color: var(--listbg)
+    &__container
+        display: flex
+        flex-direction: column
+        justify-content: center
+        align-items: center
+        gap: 15px
+        height: 100%
+        width: 72%
+    &__search
+        width: 330px
+    &__empty
+        width: 12%
+    &__link
+        display: flex
+        justify-content: center
+        align-items: center
+        width: 12%
+        &__img
+            width: 60px
+            height: 92px
+
+    
+
+
+    
+//HackatonEl.vue
+.list-el
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    align-items: center
+    padding: 0 10px
+    width: 95%
+    height: 50px
+    border-radius: 10px
+    background-color: var(--listelcolor) 
+    &__country
+        border-radius: 10px
+        padding: 1px 4px
+        background-color: var(--hackcountrybg)
+    &__status
+        border-radius: 10px
+        padding: 1px 4px
+        background-color: var(--hackstatusbg)
+
+.list-status
+    display: flex
+    flex-direction: row
+    justify-content: space-evenly
+    align-items: center
+    width: 170px
+
+.red
+    background-color: var(--hackunactivestatusbg)
+
+.add_btn
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 45px
+    height: 45px
+    border-radius: 25px
+    background-color: var(--purplbg)
+    &:active
+        background-color: var(--purplbgactive)
+
+//HackatonAdder.vue
+.adder
+    &__bg
+        position: absolute
+        top: 0
+        left: 0
+        width: 100%
+        height: 100%
+        background-color: #42424284
+    &__form
+        position: absolute
+        top: 27%
+        left: 28%
+        display: flex
+        flex-direction: column
+        justify-content: center
+        align-items: center
+        gap: 20px
+        width: 46%
+        height: 50%
+        border-radius: 10px
+        background-color: var(--white)
+
+        
