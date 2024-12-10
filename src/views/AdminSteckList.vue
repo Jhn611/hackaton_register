@@ -1,28 +1,17 @@
 <script>
 import { RouterLink, RouterView } from 'vue-router';
 import SteckEl  from '../components/SteckEl.vue';
-import { filterList } from '../search.js'
+import { filterListByName } from '../search.js'
 import SearchInput from '@/components/SearchInput.vue';
+import { get_stecks } from '../API.js';
 
 export default {
     data() {
         return{
+            load: false,
             searchQuery: "",
             active: false,
-            stecks:[ 
-                {
-                    id:"1",
-                    name:"Хакатончик",
-                    host:"Москва",
-                    status:"1"
-                },
-                {
-                    id:"2",
-                    name:"Хакатончик 2",
-                    host:"Москва",
-                    status:"0"
-                }
-            ],
+            stecks:[],
         }
     },
     components:{
@@ -31,9 +20,29 @@ export default {
     },
     computed: {
         filteredStecks() {
-            return filterList(this.stecks, this.searchQuery);
+            return filterListByName(this.stecks, this.searchQuery);
         }
     },
+    async mounted(){
+        try{
+            this.load = true;
+            const stecks_list = await get_stecks();
+            this.stecks = stecks_list;
+            this.load = false;
+        }catch{
+            this.stecks = [ 
+                {
+                    id:"1",
+                    name:"Стек",
+                },
+                {
+                    id:"2",
+                    name:"Стек2",
+                }
+            ];
+            this.load = false;
+        }
+    }
 };
 </script>
 
@@ -48,7 +57,8 @@ export default {
             <SearchInput class="steck_main__search" v-model="searchQuery" />
         </div>
         <div class="steck_main__body">
-            <div class="list_container">
+            <div class="load_container" v-if="load"><img class="load_img" src="../imgs/Loader.svg"></div>
+            <div v-if="!load" class="list_container">
                 <SteckEl v-for="steck in filteredStecks" :key="steck" :steck_data="steck"/>
             </div>
         </div>

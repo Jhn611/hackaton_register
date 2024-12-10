@@ -13,7 +13,7 @@ export default {
 
 <template>
 <div class="list-el">
-    <p class="text-16">{{ user_data.name }}</p>
+    <p class="text-16">{{ user_data.telegram_tag }}</p>
 </div>
 </template>
 

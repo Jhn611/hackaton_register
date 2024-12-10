@@ -1,27 +1,16 @@
 <script>
 import { RouterLink, RouterView } from 'vue-router';
 import UserEl  from '../components/UserEl.vue';
-import { filterList } from '../search.js'
+import { filterListByTag } from '../search.js'
 import SearchInput from '@/components/SearchInput.vue';
+import { get_users } from '../API.js';
 
 export default {
     data() {
         return{
+            load: false,
             searchQuery: "",
-            users:[ 
-                {
-                    id:"1",
-                    name:"Алёша",
-                    host:"Москва",
-                    status:"1"
-                },
-                {
-                    id:"2",
-                    name:"Ваня",
-                    host:"Москва",
-                    status:"0"
-                }
-            ]
+            users:[]
         }
     },
     components:{
@@ -30,9 +19,29 @@ export default {
     },
     computed: {
         filteredUsers() {
-            return filterList(this.users, this.searchQuery);
+            return filterListByTag(this.users, this.searchQuery);
         }
     },
+    async mounted(){
+        try{
+           this.load = true;
+           const users_list = await get_users();
+           this.users = users_list;
+           this.load = false;
+        }catch{
+            this.users = [ 
+                {
+                    user_id:1,
+                    telegram_tag:"Алёша",
+                },
+                {
+                    user_id:2,
+                    telegram_tag:"Ваня",
+                }
+            ];
+            this.load = false;
+        }
+    }
 };
 </script>
 
@@ -45,7 +54,8 @@ export default {
         <SearchInput v-model="searchQuery"  />
     </div>
     <div class="users_main__body">
-        <div class="list_container">
+        <div class="load_container" v-if="load"><img class="load_img" src="../imgs/Loader.svg"></div>
+        <div v-if="!load" class="list_container">
             <UserEl v-for="user in filteredUsers" :key="user" :user_data="user"/>
         </div>
     </div>

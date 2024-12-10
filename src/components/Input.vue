@@ -1,7 +1,4 @@
 <script>
-import { RouterLink, RouterView } from 'vue-router';
-import HackatonEl  from '../components/HackatonEl.vue';
-import { filterList } from '../search.js'
 
 export default {
     data() {

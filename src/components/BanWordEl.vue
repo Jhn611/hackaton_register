@@ -1,10 +1,5 @@
 <script>
 export default {
-    data() {
-        return{
-
-        }
-    },
     props:{
         word_data:{},
     },
@@ -18,8 +13,8 @@ export default {
 
 <template>
 <div class="list-el">
-    <p class="text-16">{{ word_data }}</p>
-    <img @click="destroy" src="../imgs/close.svg" class="pointer">
+    <p class="text-16">{{ word_data.word }}</p>
+    <img  @click="destroy" src="../imgs/close.svg" class="pointer img_color">
 </div>
 </template>
 

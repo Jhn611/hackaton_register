@@ -1,11 +1,12 @@
 <script>
 import Input from './Input.vue';
 import Select from './Select.vue';
+import { add_hackaton } from '../API.js';
 
 export default {
     data() {
         return{
-            selectedStatus: "active",
+            selectedStatus: 1,
             inputData:[
                 {
                     headerText: "Название хакатона",
@@ -19,8 +20,8 @@ export default {
                 },
             ],
             options: [
-            { value: "active", label: "Активный" },
-            { value: "inactive", label: "Неактивный" },
+            { value: 1, label: "Активный" },
+            { value: 0, label: "Неактивный" },
             ],
         }
     },
@@ -39,7 +40,11 @@ export default {
         close(){
             this.$emit('update:modelValue', false);
         },
-        add(){
+        async add(){
+            console.log(this.selectedStatus);
+            if(this.inputData[0].inputText != "" && this.inputData[0].inputText && this.inputData[1].inputText != "" && this.inputData[1].inputText){
+                await add_hackaton(this.inputData[0].inputText, this.inputData[1].inputText, this.selectedStatus);
+            } 
             this.$emit('update:modelValue', false);
         },
     },
