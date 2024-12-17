@@ -4,9 +4,13 @@ import { RouterLink, RouterView } from 'vue-router'
 export default {
   data() {
     return {
+      admin: true,
+      isRegister: true,
       theme_flag: true,
-      positionClass: 'arrow__1', 
+      positionClassAdmin: 'arrow__1', 
+      positionClassUser: 'arrow2__1', 
       name:"@stanislaw",
+      tg_id: 7890,
     };
   },
   computed: {
@@ -30,14 +34,27 @@ export default {
   methods: {
     updatePosition(position) {
       if (position === '1') {
-        this.positionClass = 'arrow__1';
+        this.positionClassAdmin = 'arrow__1';
         localStorage.setItem('arrow', '1');
       } else if (position === '2') {
-        this.positionClass = 'arrow__2';
+        this.positionClassAdmin = 'arrow__2';
         localStorage.setItem('arrow', '2');
       } else if (position === '3') {
-        this.positionClass = 'arrow__3';
+        this.positionClassAdmin = 'arrow__3';
         localStorage.setItem('arrow', '3');
+      }
+      console.log("update!!");
+    },
+    updatePositionUser(position) {
+      if (position === '1') {
+        this.positionClassUser = 'arrow2__1';
+        localStorage.setItem('arrow2', '1');
+      } else if (position === '2') {
+        this.positionClassUser = 'arrow2__2';
+        localStorage.setItem('arrow2', '2');
+      } else if (position === '3') {
+        this.positionClassUser = 'arrow2__3';
+        localStorage.setItem('arrow2', '3');
       }
       console.log("update!!");
     },
@@ -67,6 +84,7 @@ export default {
         document.documentElement.style.setProperty("--hackstatusbg", "#576D56");
         document.documentElement.style.setProperty("--hackunactivestatusbg", "#664848");
         document.documentElement.style.setProperty("--hackcountrybg", "#636052");
+        document.documentElement.style.setProperty("--elhover", "#474747");
 
       } else {
         document.documentElement.style.setProperty("--black", "#000000");
@@ -82,7 +100,7 @@ export default {
         document.documentElement.style.setProperty("--hackstatusbg", "#C4D6C3");
         document.documentElement.style.setProperty("--hackunactivestatusbg", "#E3ABAB");
         document.documentElement.style.setProperty("--hackcountrybg", "#D6D2C3");
-
+        document.documentElement.style.setProperty("--elhover", "#dbdbdb");
       }
     },
   },
@@ -90,8 +108,20 @@ export default {
     const arrow_pos = localStorage.getItem('arrow');
     if(arrow_pos != '' && arrow_pos != null){
       this.updatePosition(arrow_pos);
+      console.log(arrow_pos, "UPDATE");
     }
-  
+    const arrow_pos2 = localStorage.getItem('arrow2');
+    if(arrow_pos2 != '' && arrow_pos2 != null){
+      this.updatePositionUser(arrow_pos2);
+    }
+    
+    const isReg = localStorage.getItem('isRegister');
+    if(isReg != '' && isReg != null && isReg === 'true'){
+      this.isRegister = true;
+    }else{
+      this.isRegister = false;
+    }
+    
     const theme = localStorage.getItem("theme");
     if (theme != null){
       if(theme == 'false'){
@@ -101,6 +131,47 @@ export default {
       }
       this.switch_theme();
     }
+
+    if(this.admin){
+      if(arrow_pos != '' && arrow_pos != null){
+        if(arrow_pos === '1'){
+          this.$router.push('/admin/hackatons');
+        }else if(arrow_pos === '2'){
+          this.$router.push('/admin/users');
+        }else if(arrow_pos === '3'){
+          this.$router.push('/admin/banwords');
+        }
+      }
+    }else if(!this.isRegister){
+      this.$router.push('/user/register');
+    }
+    else{
+      if(arrow_pos2 != '' && arrow_pos2 != null){
+        if(arrow_pos2 === '1'){
+          this.$router.push('/user/write');
+        }else if(arrow_pos2 === '2'){
+          this.$router.push('/user/profile');
+        }else if(arrow_pos2 === '3'){
+          this.$router.push('/user/hackatons');
+        }
+      }
+    }
+    localStorage.setItem("telegram_tag", this.name);
+    localStorage.setItem("telegram_id", this.tg_id);
+  },
+  watch: {
+    // Следим за изменением пути маршрута
+    '$route.path'(newPath, oldPath) {
+      console.log(`Маршрут изменился: ${oldPath} → ${newPath}`);
+        if(newPath === '/user/write'){
+          const isReg = localStorage.getItem('isRegister');
+        if(isReg != '' && isReg != null && isReg === 'true'){
+          this.isRegister = true;
+        }else{
+          this.isRegister = false;
+        }
+      }
+    },
   },
 };
 </script>
@@ -112,15 +183,23 @@ export default {
       <img class="img_color" src="./imgs/account_circle.svg" alt="">
       <h1 class="text-h1 account__text">{{ name }}</h1>
     </div>
-    <nav>
-      <div :class="positionClass" class="arrow"><img src="./imgs/arrow.svg" alt=""></div>
+    <nav v-if="admin">
+      <div :class="positionClassAdmin" class="arrow"><img src="./imgs/arrow.svg" alt=""></div>
       <div class="nav_el">
         <RouterLink @click="updatePosition('1')" to="/admin/hackatons">хакатоны</RouterLink>
         <RouterLink @click="updatePosition('2')" to="/admin/users">участники</RouterLink>
         <RouterLink :class="{white: $route.path === '/admin/banword'}" @click="updatePosition('3')" to="/admin/stecks">стеки</RouterLink>
       </div>
     </nav>
-  </div>
+    <nav v-if="!admin && isRegister">
+      <div :class="positionClassUser" class="arrow2"><img src="./imgs/arrow.svg" alt=""></div>
+      <div class="nav_el">
+        <RouterLink @click="updatePositionUser('1')" to="/user/write">запись</RouterLink>
+        <RouterLink @click="updatePositionUser('2')" to="/user/profile">профиль</RouterLink>
+        <RouterLink :class="{white: $route.path === '/user/hackatons'}" @click="updatePositionUser('3')" to="/user/hackatons">хакатоны</RouterLink>
+      </div>
+    </nav>
+  </div> 
   <transition
       :name="getTransitionName"
       mode="out-in">

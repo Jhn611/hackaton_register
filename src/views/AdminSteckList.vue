@@ -3,7 +3,7 @@ import { RouterLink, RouterView } from 'vue-router';
 import SteckEl  from '../components/SteckEl.vue';
 import { filterListByName } from '../search.js'
 import SearchInput from '@/components/SearchInput.vue';
-import { get_stecks } from '../API.js';
+import { get_stacks } from '../API.js';
 
 export default {
     data() {
@@ -26,7 +26,7 @@ export default {
     async mounted(){
         try{
             this.load = true;
-            const stecks_list = await get_stecks();
+            const stecks_list = await get_stacks();
             this.stecks = stecks_list;
             this.load = false;
         }catch{

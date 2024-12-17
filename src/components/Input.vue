@@ -13,6 +13,7 @@ export default {
         },
         headerText:"",
         placeholder:"",
+        type:'',
     },
     emits: ['update:modelValue'],
     methods: {
@@ -30,7 +31,7 @@ export default {
 <template>
 <div class="input noicon_shift">
     <p class="input__text noicon_shift__text">{{ headerText }}</p>
-    <input class="noicon_shift__input" :value="modelValue" @input="updateValue($event.target.value)" type="text" :placeholder="placeholder" />
+    <input class="noicon_shift__input" :value="modelValue" @input="updateValue($event.target.value)" :type="type" :placeholder="placeholder" />
     <img
         @click="clear()"
         class="input__img noicon_shift__img"
