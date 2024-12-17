@@ -8,6 +8,7 @@ import Input from '../components/Input.vue';
 export default {
     data() {
         return{
+            token:'',
             load: false,
             searchQuery: "",
             modalActive: false,
@@ -55,7 +56,7 @@ export default {
         async reload(){
             try {
                 this.load = true;
-                const hackatons_list = await get_hackatons();
+                const hackatons_list = await get_hackatons(this.token);
                 this.hackatons = hackatons_list;
                 this.load = false;
             } catch {
@@ -66,7 +67,7 @@ export default {
         async send(){
             try {
                 this.load = true;
-                const sended = await set_user_profile(this.inputData[0].inputText, this.inputData[1].inputText, this.inputData[3].inputText, this.inputData[2].inputText);
+                const sended = await set_user_profile(this.inputData[0].inputText, this.inputData[1].inputText, this.inputData[3].inputText, this.inputData[2].inputText, this.token);
                 this.load = false;
             } catch {
                 console.log("error");
@@ -75,9 +76,10 @@ export default {
         }
     },
     async mounted(){
+        this.token = localStorage.getItem('token');
         try {
             this.load = true;
-            const data_list = await get_profile();
+            const data_list = await get_profile(this.token);
             this.inputData[0].inputText = data_list.first_name;
             this.inputData[1].inputText = data_list.last_name;
             this.inputData[2].inputText = data_list.tag_telegram;

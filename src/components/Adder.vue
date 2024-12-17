@@ -6,6 +6,7 @@ export default {
     name: 'StackSelector',
     data() {
       return {
+        token:'',
         maxStacks: 10,
         selectedStacks: [],
         searchQuery: ''
@@ -37,7 +38,7 @@ export default {
         if (this.selectedStacks.length < this.maxStacks && !this.selectedStacks.includes(stack)) {
           if(typeof stack === "string"){
             this.$emit('update:modelValue', false);
-            const new_stack = await add_stack(this.searchQuery);
+            const new_stack = await add_stack(this.searchQuery, this.token);
             this.selectedStacks.push({id:new_stack, name:stack});
             this.$emit('reload');
           }else{
@@ -53,7 +54,10 @@ export default {
       removeStack(index) {
         this.selectedStacks.splice(index, 1);
       }
-    }
+    },
+    mounted(){
+      this.token = localStorage.getItem('token');
+    },
   };
 </script>
   

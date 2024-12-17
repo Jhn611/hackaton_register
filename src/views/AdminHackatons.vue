@@ -9,6 +9,7 @@ import { get_hackatons } from '../API.js';
 export default {
     data() {
         return{
+            token:'',
             load: false,
             searchQuery: "",
             modalActive: false,
@@ -32,7 +33,7 @@ export default {
         async reload(){
             try {
                 this.load = true;
-                const hackatons_list = await get_hackatons();
+                const hackatons_list = await get_hackatons(this.token);
                 this.hackatons = hackatons_list;
                 this.load = false;
             } catch {
@@ -46,7 +47,7 @@ export default {
             if (newValue === false) {
                 try {
                     this.load = true;
-                    const hackatons_list = await get_hackatons();
+                    const hackatons_list = await get_hackatons(this.token);
                     this.load = false;
                     this.hackatons = hackatons_list;
                 }catch{
@@ -57,9 +58,10 @@ export default {
         },
     },
     async mounted(){
+        this.token = localStorage.getItem('token');
         try {
             this.load = true;
-            const hackatons_list = await get_hackatons();
+            const hackatons_list = await get_hackatons(this.token);
             this.hackatons = hackatons_list;
             this.load = false;
         } catch {

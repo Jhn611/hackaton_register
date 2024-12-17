@@ -122,6 +122,24 @@ export default {
       this.isRegister = false;
     }
     
+    const params = new URLSearchParams(window.location.search);
+    console.log("querry", params);
+    if(params.get('admin') == 'True'){
+      this.admin = true;
+      this.isRegister = true;
+      localStorage.setItem('isRegister', false)
+    }else{
+      this.admin = false;
+    }
+    if(params.get('token') && params.get('token') != ""){
+      this.token = params.get('token');
+      localStorage.setItem('token', params.get('token'))
+    }else{
+      this.token = '';
+      localStorage.setItem('token', '')
+    }
+
+
     const theme = localStorage.getItem("theme");
     if (theme != null){
       if(theme == 'false'){

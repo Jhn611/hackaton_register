@@ -8,6 +8,7 @@ import { get_users } from '../API.js';
 export default {
     data() {
         return{
+            token:'',
             load: false,
             searchQuery: "",
             users:[]
@@ -23,9 +24,10 @@ export default {
         }
     },
     async mounted(){
+        this.token = localStorage.getItem('token');
         try{
            this.load = true;
-           const users_list = await get_users();
+           const users_list = await get_users(this.token);
            this.users = users_list;
            this.load = false;
         }catch{

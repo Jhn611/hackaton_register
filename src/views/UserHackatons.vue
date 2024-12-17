@@ -8,6 +8,7 @@ import { get_my_hackatons } from '../API.js';
 export default {
     data() {
         return{
+            token:'',
             load: false,
             searchQuery: "",
             hackatons:[],
@@ -28,7 +29,7 @@ export default {
         async reload(){
             try {
                 this.load = true;
-                const hackatons_list = await get_hackatons();
+                const hackatons_list = await get_hackatons(this.token);
                 this.hackatons = hackatons_list;
                 this.load = false;
             } catch {
@@ -38,6 +39,7 @@ export default {
         },
     },
     async mounted(){
+        this.token = localStorage.getItem('token');
         const tg_tag = localStorage.getItem("telegram_tag");
         if(tg_tag && tg_tag != ""){
             this.name = tg_tag;
@@ -49,7 +51,7 @@ export default {
         console.log(this.name);
         try {
             this.load = true;
-            const hackatons_list = await get_my_hackatons(this.tg_id);
+            const hackatons_list = await get_my_hackatons(this.tg_id, this.token);
             this.hackatons = hackatons_list;
             this.load = false;
         } catch {

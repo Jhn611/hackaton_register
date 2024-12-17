@@ -8,6 +8,7 @@ import { get_ban_words, add_ban_words, delete_ban_words } from "../API.js";
 export default {
     data() {
         return{
+            token:'',
             load: false,
             searchQuery: "",
             active: false,
@@ -28,7 +29,7 @@ export default {
         async removeComponent(valueToRemove){
             try{
                 this.load = true;
-                await delete_ban_words(valueToRemove.word);
+                await delete_ban_words(valueToRemove.word, this.token);
                 this.banWords = this.banWords.filter(item => item !== valueToRemove);
                 this.load = false;
             }catch{
@@ -39,7 +40,7 @@ export default {
         async reload(){
             try {
                 this.load = true;
-                const banwordsList = await get_ban_words();
+                const banwordsList = await get_ban_words(this.token);
                 this.banWords = banwordsList;
                 this.load = false;
             } catch {
@@ -48,15 +49,16 @@ export default {
             }
         },
         async add(variable){
-            await add_ban_words(variable);
+            await add_ban_words(variable, this.token);
             this.searchQuery = '';
             await this.reload();
         }
     },
     async mounted(){
+        this.token = localStorage.getItem('token');
         try {
             this.load = true;
-            const banwordsList = await get_ban_words();
+            const banwordsList = await get_ban_words(this.token);
             this.banWords = banwordsList;
             this.load = false;
         } catch {

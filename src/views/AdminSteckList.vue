@@ -24,9 +24,10 @@ export default {
         }
     },
     async mounted(){
+        this.token = localStorage.getItem('token');
         try{
             this.load = true;
-            const stecks_list = await get_stacks();
+            const stecks_list = await get_stacks(this.token);
             this.stecks = stecks_list;
             this.load = false;
         }catch{

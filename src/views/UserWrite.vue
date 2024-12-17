@@ -11,6 +11,7 @@ export default {
     data() {
         return{
             load: false,
+            token:"",
             searchQuery: "",
             modalActive: false,
             selectedStatus: "",
@@ -64,7 +65,7 @@ export default {
                     stecks_to_send.push(this.selectedStackList[i].id);
                 }
                 console.log(this.inputData[0].inputText, this.inputData[1].inputText, this.inputData[2].inputText, this.selectedStatus, stecks_to_send);
-                const stacks_list = await hackaton_register(this.inputData[0].inputText, this.inputData[1].inputText, this.inputData[2].inputText, this.selectedStatus, stecks_to_send);
+                const stacks_list = await hackaton_register(this.inputData[0].inputText, this.inputData[1].inputText, this.inputData[2].inputText, this.selectedStatus, stecks_to_send, this.token);
                 this.load = false;
             } catch {
                 this.load = false;
@@ -80,7 +81,7 @@ export default {
         },  
         async reload(){
             try {
-                const stacks_list = await get_stacks();
+                const stacks_list = await get_stacks(this.token);
                 this.stacks = stacks_list;
             } catch {
                 
@@ -89,9 +90,10 @@ export default {
     },
     async mounted(){
         document.addEventListener('click', this.close.bind(this))
+        this.token = localStorage.getItem('token');
         try {
             this.load = true;
-            const stacks_list = await get_stacks();
+            const stacks_list = await get_stacks(this.token);
             this.stacks = stacks_list;
             if(this.stacks.length == 0){
                 this.stacks = [{name:'Vue.js', id:-1}, {name:'React', id:-3}, {name:'Angular', id:-2}];
@@ -104,7 +106,7 @@ export default {
 
         try {
             this.load = true;
-            const hackatons_list = await get_hackatons();
+            const hackatons_list = await get_hackatons(this.token);
             for(let i = 0; i < hackatons_list.length; i++){
                 if(hackatons_list[i].activity_status == 1){
                     this.options.push({value:hackatons_list[i].hackathon_id, label:hackatons_list[i].hackathon_name})

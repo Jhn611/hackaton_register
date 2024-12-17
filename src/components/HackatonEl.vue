@@ -16,11 +16,14 @@ export default {
     methods:{
         async change_activity(variable){ 
             if(this.isAdmin){
-                await change_status_hackaton(variable); 
+                await change_status_hackaton(variable, this.token); 
                 this.$emit("update");  
             }       
         }
-    }
+    },
+    mounted(){
+      this.token = localStorage.getItem('token');
+    },
 };
 </script>
 

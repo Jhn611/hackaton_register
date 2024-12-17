@@ -1,9 +1,9 @@
 import axios  from "axios";
 
 const BASE_URL = "http://26.48.41.80:8000";
-const API_TOKEN = "123";
 
-export async function req(params, request, type) {
+
+export async function req(params, request, type, API_TOKEN) {
     try {
         const config = {
             headers: {
@@ -42,64 +42,64 @@ export async function req(params, request, type) {
 };
 
 
-export async function get_users() {
-    return req('', '/api/admin/users', 'get');
+export async function get_users(token) {
+    return req('', '/api/admin/users', 'get', token);
 };
 
-export async function get_ban_words() {
-    return req('', '/api/admin/forbidden-word', 'get');
+export async function get_ban_words(token) {
+    return req('', '/api/admin/forbidden-word', 'get', token);
 };
 
-export async function get_hackatons() {
-    return req('', '/api/hackathon', 'get');
+export async function get_hackatons(token) {
+    return req('', '/api/hackathon', 'get', token);
 };
 
-export async function get_stacks() {
-    return req('', '/api/tech-stack', 'get');
+export async function get_stacks(token) {
+    return req('', '/api/tech-stack', 'get', token);
 };
 
-export async function add_ban_words(word) {
+export async function add_ban_words(word, token) {
     const data = {
         word: word
     }
-    return req(data, '/api/admin/forbidden-word/add', 'post');
+    return req(data, '/api/admin/forbidden-word/add', 'post', token);
 };
 
-export async function delete_ban_words(word) {
+export async function delete_ban_words(word, token) {
     const params = {
         word: word
     }
-    return req(params, '/api/admin/forbidden-word/delete', 'delete');
+    return req(params, '/api/admin/forbidden-word/delete', 'delete', token);
 };
 
-export async function add_hackaton(name, host, status, date) {
+export async function add_hackaton(name, host, status, date, token) {
     const data = {
         hackathon_name: name,
         host_hackathon: host, 
         activity_status: status,
         event_date: date
     }
-    return req(data, '/api/admin/hackathon/add', 'post');
+    return req(data, '/api/admin/hackathon/add', 'post', token);
 };
 
-export async function change_status_hackaton(id) {
+export async function change_status_hackaton(id, token) {
     const params = {
         hackathon_id: id
     }
-    return req(params, '/api/admin/hackathon/change-status', 'patch');
+    return req(params, '/api/admin/hackathon/change-status', 'patch', token);
 };
 
-export async function set_user_profile(name, surname, group, tg) {
+export async function set_user_profile(name, surname, group, tg, token) {
     const data = {
         first_name: name,
         last_name: surname, 
         study_group: group,
         tag_telegram: tg,
     }
-    return req(data, '/api/user/profile', 'post');
+    return req(data, '/api/user/profile', 'post', token);
 };
 
-export async function hackaton_register(team, tg, role, id, stacks) {
+export async function hackaton_register(team, tg, role, id, stacks, token) {
     const data = {
         team_name: team,
         captain_tag: tg, 
@@ -107,23 +107,23 @@ export async function hackaton_register(team, tg, role, id, stacks) {
         hackathon_id: id, 
         technology_stack: stacks,
     }
-    return req(data, '/api/hackathon/register', 'post');
+    return req(data, '/api/hackathon/register', 'post', token);
 };
 
-export async function add_stack(stack) {
+export async function add_stack(stack, token) {
     const data = {
         tech_name: stack
     }
-    return req(data, '/api/tech-stack/add', 'post');
+    return req(data, '/api/tech-stack/add', 'post', token);
 };
 
-export async function get_my_hackatons(id) {
+export async function get_my_hackatons(id, token) {
     const params = {
         id_telegram: id
     }
-    return req(params, '/api/user/my_hackathon', 'get');
+    return req(params, '/api/user/my_hackathon', 'get', token);
 };
 
-export async function get_profile() {
-    return req('', '/api/user/my_hackathon', 'get');
+export async function get_profile(token) {
+    return req('', '/api/user/my_hackathon', 'get', token);
 };

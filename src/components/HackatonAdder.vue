@@ -6,6 +6,7 @@ import { add_hackaton } from '../API.js';
 export default {
     data() {
         return{
+            token:'',
             selectedStatus: 1,
             inputData:[
                 {
@@ -51,10 +52,13 @@ export default {
         async add(){
             if(this.inputData[0].inputText != "" && this.inputData[0].inputText && this.inputData[1].inputText != "" && this.inputData[1].inputText && this.inputData[2].inputText != "" && this.inputData[2].inputText){
                 console.log(this.inputData[0].inputText, this.inputData[1].inputText, this.selectedStatus)
-                await add_hackaton(this.inputData[0].inputText, this.inputData[1].inputText, this.selectedStatus, this.inputData[2].inputText);
+                await add_hackaton(this.inputData[0].inputText, this.inputData[1].inputText, this.selectedStatus, this.inputData[2].inputText, this.token);
             } 
             this.$emit('update:modelValue', false);
         },
+    },
+    mounted(){
+      this.token = localStorage.getItem('token');
     },
 };
 </script>
